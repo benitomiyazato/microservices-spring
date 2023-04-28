@@ -1,0 +1,9 @@
+com\benitomiyazato\productservice\dto\ProductResponse.class
+com\benitomiyazato\productservice\controller\ProductController.class
+com\benitomiyazato\productservice\dto\ProductRequest.class
+com\benitomiyazato\productservice\ProductServiceApplication.class
+com\benitomiyazato\productservice\dto\ProductRequest$ProductRequestBuilder.class
+com\benitomiyazato\productservice\service\ProductService.class
+com\benitomiyazato\productservice\model\Product.class
+com\benitomiyazato\productservice\model\Product$ProductBuilder.class
+com\benitomiyazato\productservice\repository\ProductRepository.class
