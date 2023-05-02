@@ -21,7 +21,7 @@ import java.util.List;
 public class OrderService {
 
     private final OrderRepository orderRepository;
-    private final WebClient webClient;
+    private final WebClient.Builder webClientBuilder;
 
     public OrderResponse newOrder(OrderRequest orderRequest) {
         Order orderToSave = new Order();
@@ -36,7 +36,7 @@ public class OrderService {
         orderToSave.setTotalPrice(totalPrice);
 
         List<String> names = orderRequest.getOrderLines().stream().map(OrderLine::getName).toList();
-        InventoryResponse[] inventoryResponses = webClient.get().uri("http://localhost:8082/api/inventories", uriBuilder -> uriBuilder.queryParam("name", names).build()).retrieve().bodyToMono(InventoryResponse[].class).block();
+        InventoryResponse[] inventoryResponses = webClientBuilder.build().get().uri("http://inventory-service/api/inventories", uriBuilder -> uriBuilder.queryParam("name", names).build()).retrieve().bodyToMono(InventoryResponse[].class).block();
         ;
 
 
