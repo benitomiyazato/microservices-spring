@@ -17,5 +17,5 @@ public class Inventory {
     @Id
     private String id;
     private String name;
-    private String quantity;
+    private Integer quantity;
 }

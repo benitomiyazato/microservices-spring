@@ -14,8 +14,8 @@ public class InventoryController {
     private final InventoryService inventoryService;
 
     // http://localhost:8082/api/inventories?name=iphone13&name=samsung22
-    @GetMapping("/")
-    public List<InventoryResponse> isInStock(@RequestParam List<String> names) {
+    @GetMapping("")
+    public List<InventoryResponse> isInStock(@RequestParam(name = "name") List<String> names) {
         return inventoryService.isInStock(names);
     }
 }

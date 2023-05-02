@@ -8,9 +8,6 @@ import com.benitomiyazato.orderservice.model.OrderLine;
 import com.benitomiyazato.orderservice.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -18,7 +15,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +23,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final WebClient webClient;
 
-    public ResponseEntity<Object> newOrder(OrderRequest orderRequest) {
+    public OrderResponse newOrder(OrderRequest orderRequest) {
         Order orderToSave = new Order();
         BeanUtils.copyProperties(orderRequest, orderToSave);
 
@@ -40,7 +36,7 @@ public class OrderService {
         orderToSave.setTotalPrice(totalPrice);
 
         List<String> names = orderRequest.getOrderLines().stream().map(OrderLine::getName).toList();
-        InventoryResponse[] inventoryResponses = webClient.get().uri("http://localhost:8082/api/inventories/", uriBuilder -> uriBuilder.queryParam("name", names).build()).retrieve().bodyToMono(InventoryResponse[].class).block();
+        InventoryResponse[] inventoryResponses = webClient.get().uri("http://localhost:8082/api/inventories", uriBuilder -> uriBuilder.queryParam("name", names).build()).retrieve().bodyToMono(InventoryResponse[].class).block();
         ;
 
 
@@ -53,9 +49,8 @@ public class OrderService {
             Order savedOrder = orderRepository.save(orderToSave);
             OrderResponse orderResponse = new OrderResponse();
             BeanUtils.copyProperties(savedOrder, orderResponse);
-            return new ResponseEntity<>(orderResponse, HttpStatus.CREATED);
+            return orderResponse;
         }
-
-        return new ResponseEntity<>("Product is not in stock", HttpStatusCode.valueOf(422));
+        return null;
     }
 }

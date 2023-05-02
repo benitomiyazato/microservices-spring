@@ -23,6 +23,10 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<OrderResponse> newOrder(@RequestBody OrderRequest orderRequest) {
-        return new ResponseEntity<>(orderService.newOrder(orderRequest), HttpStatus.CREATED);
+        OrderResponse orderResponse = orderService.newOrder(orderRequest);
+        if(orderResponse == null) {
+            return new ResponseEntity<>(HttpStatus.valueOf(422));
+        }
+        return new ResponseEntity<>(orderResponse, HttpStatus.CREATED);
     }
 }
