@@ -3,11 +3,13 @@ package com.benitomiyazato.orderservice.service;
 import com.benitomiyazato.orderservice.dto.InventoryResponse;
 import com.benitomiyazato.orderservice.dto.OrderRequest;
 import com.benitomiyazato.orderservice.dto.OrderResponse;
+import com.benitomiyazato.orderservice.event.OrderPlacedEvent;
 import com.benitomiyazato.orderservice.model.Order;
 import com.benitomiyazato.orderservice.model.OrderLine;
 import com.benitomiyazato.orderservice.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -22,6 +24,7 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final WebClient.Builder webClientBuilder;
+    private final KafkaTemplate<String, OrderPlacedEvent> kafkaTemplate;
 
     public OrderResponse newOrder(OrderRequest orderRequest) {
         Order orderToSave = new Order();
@@ -47,6 +50,8 @@ public class OrderService {
 
         if (allProductsInStock) {
             Order savedOrder = orderRepository.save(orderToSave);
+            kafkaTemplate.send("notificationTopic", new OrderPlacedEvent(savedOrder.getId()));
+
             OrderResponse orderResponse = new OrderResponse();
             BeanUtils.copyProperties(savedOrder, orderResponse);
             return orderResponse;

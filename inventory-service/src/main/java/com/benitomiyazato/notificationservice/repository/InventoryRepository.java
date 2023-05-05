@@ -1,11 +1,10 @@
-package com.benitomiyazato.inventoryservice.repository;
+package com.benitomiyazato.notificationservice.repository;
 
-import com.benitomiyazato.inventoryservice.model.Inventory;
+import com.benitomiyazato.notificationservice.model.Inventory;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface InventoryRepository extends MongoRepository<Inventory, String> {

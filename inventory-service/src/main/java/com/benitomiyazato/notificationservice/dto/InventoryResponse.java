@@ -1,4 +1,4 @@
-package com.benitomiyazato.inventoryservice.dto;
+package com.benitomiyazato.notificationservice.dto;
 
 import lombok.*;
 

@@ -1,7 +1,7 @@
-package com.benitomiyazato.inventoryservice.service;
+package com.benitomiyazato.notificationservice.service;
 
-import com.benitomiyazato.inventoryservice.dto.InventoryResponse;
-import com.benitomiyazato.inventoryservice.repository.InventoryRepository;
+import com.benitomiyazato.notificationservice.dto.InventoryResponse;
+import com.benitomiyazato.notificationservice.repository.InventoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

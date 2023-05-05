@@ -1,4 +1,4 @@
-package com.benitomiyazato.inventoryservice;
+package com.benitomiyazato.notificationservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

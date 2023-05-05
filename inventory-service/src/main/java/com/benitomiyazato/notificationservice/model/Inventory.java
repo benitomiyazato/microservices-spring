@@ -1,4 +1,4 @@
-package com.benitomiyazato.inventoryservice.model;
+package com.benitomiyazato.notificationservice.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

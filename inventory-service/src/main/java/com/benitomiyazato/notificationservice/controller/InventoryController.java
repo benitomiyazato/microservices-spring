@@ -1,7 +1,7 @@
-package com.benitomiyazato.inventoryservice.controller;
+package com.benitomiyazato.notificationservice.controller;
 
-import com.benitomiyazato.inventoryservice.dto.InventoryResponse;
-import com.benitomiyazato.inventoryservice.service.InventoryService;
+import com.benitomiyazato.notificationservice.dto.InventoryResponse;
+import com.benitomiyazato.notificationservice.service.InventoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
